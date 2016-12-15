@@ -138,7 +138,8 @@ namespace ga {
     return word;
   }
 
-  std::vector<ga::Word::LETTER> Word::getLetters(std::string word) {
+  std::vector<ga::Word::LETTER> Word::getLetters(std::string word) 
+  {
     std::vector<LETTER> letters;
     for ( auto& w : word ) {
       letters.push_back(getLetter(w));
@@ -153,6 +154,11 @@ namespace ga {
     for (int i = 0; i < length; ++i) {
       mLetters.push_back(getRandomLetter());
     }
+  }
+
+  Word::Word(std::vector<LETTER>&& letters) 
+  {
+    mLetters = std::move(letters);
   }
 
   Word::LETTER Word::getRandomLetter()
@@ -170,6 +176,17 @@ namespace ga {
       idx++;
     }
     return fitness;
+  }
+
+  ga::Word Word::breed(const Word& w) const 
+  {
+    std::vector<LETTER> newLetters;
+    for ( auto i = 0; i < mLetters.size(); ++i ) {
+      auto& l0 = mLetters[i];
+      auto& l1 = w.mLetters[i];
+      newLetters.push_back((LETTER)((int)((l0 + l1) * .5f)));
+    }
+    return ga::Word(std::move(newLetters));
   }
 
   void Word::printWord() {

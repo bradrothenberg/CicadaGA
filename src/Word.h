@@ -53,11 +53,14 @@ namespace ga {
     static std::vector<LETTER> getLetters(std::string word);
   public:
     Word(int length, int randomSeed);
+    Word(std::vector<LETTER>&& letters);
 
     LETTER getRandomLetter();
 
     //Get the fitness of this word compared to the target:
     std::vector<float> getFitness(const std::vector<Word::LETTER>& target)const;
+
+    Word breed(const Word& w)const;
 
     void printWord();
   private:

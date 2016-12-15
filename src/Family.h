@@ -11,12 +11,14 @@ namespace ga {
   class Family 
   {
   public:
+    typedef std::vector<Word::LETTER> targetWord;
       Family(int length, int size, int seed);
       Family(std::vector<Word>&& words);
 
-      float getOverallFitness(const std::vector<Word::LETTER>& target);
-      std::vector<Word> getFittestWords(const std::vector<Word::LETTER>& target, float percentage = .5f)const;
+      float getOverallFitness(const targetWord& target)const;
+      std::vector<Word> getFittestWords(const targetWord& target, float percentage = .5f)const;
 
+      Family breed(const Family& fam, const targetWord& target, float percentage = .5f)const;
   private:
     std::vector<Word> mWords;
 

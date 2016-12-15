@@ -18,12 +18,16 @@ namespace ga {
     void run(int iters);
 
   private:
+    std::vector<ga::Family> step(const std::vector<ga::Family>& families);
+
+  private:
     std::shared_ptr<Family> mFamily;
     std::vector<Word::LETTER> mTarget;
 
     const float mMutationRate = .15f;
     const float mKeepRate = .5f;
 
+    float mCurrentVal;
   };
 
 

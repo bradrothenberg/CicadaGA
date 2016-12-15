@@ -18,11 +18,13 @@ namespace ga {
     }
   }
 
-  Family::Family(std::vector<Word>&& words) {
+  Family::Family(std::vector<Word>&& words) 
+  {
     mWords = std::move(words);
   }
 
-  float Family::getOverallFitness(const std::vector<Word::LETTER>& target) {
+  float Family::getOverallFitness(const targetWord& target) const
+  {
     float totalVal{ 0.f };
     for ( auto& w : mWords ) {
       auto fitVals = w.getFitness(target);
@@ -32,8 +34,9 @@ namespace ga {
     return totalVal /= (float)mWords.size();
   }
 
-  std::vector<ga::Word> Family::getFittestWords(const std::vector<Word::LETTER>& target,
-                                                float percentage /*= .5f*/) const {
+  std::vector<ga::Word> Family::getFittestWords(const targetWord& target,
+                                                float percentage /*= .5f*/) const 
+  {
     //Store fitness vals & then sort by size
     std::vector<std::pair<float,const Word*>> fitnessVals;
     for ( auto& w : mWords ) {
@@ -53,6 +56,22 @@ namespace ga {
       wordsOut.push_back(*fitnessVals[i].second);
     }
     return wordsOut;
+  }
+
+  ga::Family Family::breed(const Family& fam, 
+                                   const targetWord& target, 
+                                   float percentage /*= .5f*/) const 
+  {
+    auto words1 = getFittestWords(target, 1.0);
+    auto words2 = getFittestWords(target, 1.0);
+    std::vector<Word> words;
+    for ( auto i = 0; i < words1.size(); ++i ) {
+      auto& w1 = words1[i];
+      auto& w2 = words2[i];
+
+      words.push_back(w1.breed(w2));
+    }
+    return ga::Family(std::move(words));
   }
 
 }//end namespace ga

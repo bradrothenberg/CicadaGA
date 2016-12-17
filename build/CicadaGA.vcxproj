@@ -142,16 +142,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Family.cpp" />
-    <ClCompile Include="..\src\Genetic.cpp" />
+    <ClCompile Include="..\src\DNA.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\Word.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Family.h" />
-    <ClInclude Include="..\src\Genetic.h" />
-    <ClInclude Include="..\src\Utils.h" />
-    <ClInclude Include="..\src\Word.h" />
+    <ClInclude Include="..\src\DNA.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
